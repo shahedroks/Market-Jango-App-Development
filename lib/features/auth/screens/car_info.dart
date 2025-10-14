@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:market_jango/core/constants/color_control/all_color.dart';
 import 'package:market_jango/core/widget/custom_auth_button.dart';
 import 'package:market_jango/core/widget/sreeen_brackground.dart';
+import 'package:market_jango/features/auth/screens/email_screen.dart';
 import 'package:market_jango/features/auth/screens/phone_number.dart';
 
 class CarInfoScreen extends StatelessWidget {
@@ -164,8 +165,6 @@ class _CarInfoDriverRoute extends State<CarInfoDriverRoute> {
           ),
         ),
 
-       
-
         
         SizedBox(height: 28.h),
         Text("Upload your driging license & other documents", style: textTheme.bodyMedium),
@@ -199,11 +198,8 @@ class NextBotton extends StatelessWidget {
   }
 
   void nextButonDone(BuildContext context) {
-    goToPhoneNumberScreen(context);
-  }
-
-  void goToPhoneNumberScreen(BuildContext context) {
     context.push(PhoneNumberScreen.routeName);
   }
+
+  
 }
- 

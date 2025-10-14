@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:market_jango/core/widget/custom_auth_button.dart';
 import 'package:market_jango/core/widget/sreeen_brackground.dart';
-import 'package:market_jango/features/auth/screens/vendor_request_from.dart';
+import 'package:market_jango/features/auth/screens/Congratulation.dart';
+import 'package:market_jango/features/auth/screens/account_request.dart';
+
+import 'login/logic/obscureText_controller.dart';
+import 'login/logic/password_validator.dart';
 
 class PasswordScreen extends StatelessWidget {
   const PasswordScreen({super.key});
@@ -27,43 +32,61 @@ class PasswordScreen extends StatelessWidget {
   }
 }
 
-class PasswordText extends StatelessWidget {
+class PasswordText extends ConsumerWidget {
   const PasswordText({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isObscure = ref.watch(passwordVisibilityProvider);
+    TextEditingController  controllerPassword = TextEditingController();
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 20.h),
-        Center(child: Text("Create New Password", style: textTheme.titleLarge)),
-        SizedBox(height: 20.h),
-        Center(
-          child: Text(
-            "Type and confirm a secure new password for your amount",
-            style: textTheme.bodySmall,
-          ),
-        ),
-        SizedBox(height: 56.h),
+        SizedBox(height: 50.h,),
         TextFormField(
+          controller: controllerPassword,
+          textInputAction: TextInputAction.done,
+          autovalidateMode: AutovalidateMode.disabled,
+          validator: passwordValidator, // তোমার existing function
+          obscureText: isObscure,
           decoration: InputDecoration(
-            hintText: 'New Password',
-            suffixIcon: Icon(Icons.visibility_off_outlined)
+            hintText: "New Password",
+            suffixIcon: IconButton(
+              icon: Icon(
+                isObscure ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+              ),
+              onPressed: () {
+                ref.read(passwordVisibilityProvider.notifier).state = !isObscure;
+              },
+            ),
           ),
-          obscureText: true,
         ),
         SizedBox(height: 30.h,),
         TextFormField(
+          controller: controllerPassword,
+          textInputAction: TextInputAction.done,
+          autovalidateMode: AutovalidateMode.disabled,
+          validator: passwordValidator, // তোমার existing function
+          obscureText: isObscure,
           decoration: InputDecoration(
-              hintText: 'Confirm Password',
-              suffixIcon: Icon(Icons.visibility_off_outlined)
+            hintText: "Confirm Password",
+            suffixIcon: IconButton(
+              icon: Icon(
+                isObscure ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+              ),
+              onPressed: () {
+                ref.read(passwordVisibilityProvider.notifier).state = !isObscure;
+              },
+            ),
           ),
-          obscureText: true,
         ),
-        
+        SizedBox(height: 30.h,),
+        CustomAuthButton(buttonText: "Save", onTap: (){goToNextScreen(context);}),
       ],
     );
+  }
+  void goToNextScreen( BuildContext context
+      ){
+    context.push(AccountRequest.routeName);
   }
 }
 
@@ -75,7 +98,7 @@ class NextBotton extends StatelessWidget {
       children: [
         SizedBox(height: 30.h),
         CustomAuthButton(
-          buttonText: "Save",
+          buttonText: "Confirm",
           onTap: () => nextButonDone(context),
         ),
       ],
@@ -83,10 +106,10 @@ class NextBotton extends StatelessWidget {
   }
 
   void nextButonDone(BuildContext context) {
-    goToVendorRequestFrom(context);
+    goToAccountRequest(context);
   }
 
-  void goToVendorRequestFrom(BuildContext context) {
-    context.push(VendorRequestFrom.routeName);
+  void goToAccountRequest(BuildContext context) {
+    context.push(AccountRequest.routeName);
   }
 }

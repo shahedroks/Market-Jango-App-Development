@@ -104,6 +104,7 @@ class NextButton extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height: 50.h),
+
         CustomAuthButton(
           buttonText: "Next",
           onTap: () => context.push(EmailScreen.routeName),

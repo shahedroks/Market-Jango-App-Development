@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:market_jango/core/constants/color_control/all_color.dart';
 import 'package:market_jango/core/constants/color_control/theme_color_controller.dart';
 import 'package:market_jango/core/theme/text_theme.dart';
@@ -13,7 +12,7 @@ ThemeData themeMood(){
   brightness:brightness,
   colorScheme: ColorScheme.light(
     brightness: brightness,
-      primary: AllColor.yellow500,
+      primary: AllColor.orange500,
       onPrimary:_themeController.isDarkMode.value?  AllColor.white :ThemeColorController.black,
       secondary:ThemeColorController.green,
       onSecondary:_themeController.isDarkMode.value? AllColor.white:ThemeColorController.black,

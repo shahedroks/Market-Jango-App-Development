@@ -7,14 +7,21 @@ import 'package:go_router/go_router.dart';
 import 'package:market_jango/%20business_logic/models/categories_model.dart';
 import 'package:market_jango/core/constants/color_control/all_color.dart';
 import 'package:market_jango/core/constants/image_control/image_path.dart';
+import 'package:market_jango/core/widget/custom_new_product.dart';
+import 'package:market_jango/core/widget/custom_search_bar.dart';
+import 'package:market_jango/core/widget/global_notification_icon.dart';
 import 'package:market_jango/core/widget/see_more_button.dart';
 import 'package:market_jango/features/buyer/data/categories_data_read.dart';
 import 'package:market_jango/features/buyer/logic/slider_manage.dart';
+import 'package:market_jango/features/buyer/screens/product/product_details.dart';
 import 'package:market_jango/features/buyer/screens/see_just_for_you_screen.dart';
-import 'package:market_jango/features/buyer/screens/see_new_items_screen.dart';
 import 'package:market_jango/features/buyer/widgets/custom_categories.dart';
+import 'package:market_jango/features/buyer/widgets/custom_discunt_card.dart';
+import 'package:market_jango/features/buyer/widgets/custom_new_items_show.dart';
+import 'package:market_jango/features/buyer/widgets/custom_top_card.dart';
 import 'package:market_jango/features/buyer/widgets/home_product_title.dart';
 import 'all_categori/screen/all_categori_screen.dart';
+import 'all_categori/screen/category_product_screen.dart';
 import 'filter/screen/location_filtering_tab.dart';
 import 'notification/screen/notification_screen.dart';
 class BuyerHomeScreen extends StatefulWidget {
@@ -38,14 +45,16 @@ class _BuyerHomeScreenState extends State<BuyerHomeScreen> {
           
                 BuyerHomeSearchBar(),
                 PromoSlider(),
-                SeeMoreButton(name:"Categories",seeMoreAction: (){goToCategoriesPage();},),
-                CustomCategories(scrollableCheck: NeverScrollableScrollPhysics(),categoriCount: 4,),
+                SeeMoreButton(name:"Categories",seeMoreAction: (){goToAllCategoriesPage();},),
+                CustomCategories(scrollableCheck: NeverScrollableScrollPhysics(),categoriCount: 4,goToCategoriesProductPage:() {
+                  goToCategoriesProductPage(context);
+                } ,),
                 SeeMoreButton(name:"Top Products",seeMoreAction: (){},isSeeMore: false,),
-                TopProducts(),
+                CustomTopProducts(),
                 // TimerScreen(),
                 // DiscountProduct(),
                 SeeMoreButton(name:"New Items",seeMoreAction: (){goToNewItemsPage();},),
-                NewItemsShow(),
+                CustomNewItemsShow(),
                 SeeMoreButton(name:"Just For you",seeMoreAction: (){goToJustForYouPage();},),
                 JustForYouProduct()
               ],
@@ -55,12 +64,16 @@ class _BuyerHomeScreenState extends State<BuyerHomeScreen> {
       ),
     );
   }
-  void goToCategoriesPage() {
+  void goToAllCategoriesPage() {
     context.push(CategoriesScreen.routeName);
   }
-  void goToNewItemsPage(){context.push(SeeNewItemsScreen.routeName);}
-  void goToJustForYouPage(){context.push(SeeJustForYouScreen.routeName);}
-
+  void goToNewItemsPage(){context.pushNamed(
+      SeeJustForYouScreen.routeName, pathParameters: {"screenName": "New Items"});}
+  void goToJustForYouPage(){context.pushNamed(
+      SeeJustForYouScreen.routeName, pathParameters: {"screenName": "Just For You"});}
+ void goToCategoriesProductPage(BuildContext context) {
+context.push(CategoryProductScreen.routeName);
+}
 }
 
 class JustForYouProduct extends StatelessWidget {
@@ -81,20 +94,17 @@ class JustForYouProduct extends StatelessWidget {
         itemCount: 20,
         // Example item count
         itemBuilder: (context, index) {
-      return CustomNewProduct(width: 162.w, height: 175.h);
+      return CustomNewProduct(width: 162.w, height: 175.h, text: "New T-shirt, sun-glass",text2: "New T-shirt,");
         });
   }
 }
 
-class NewItemsShow extends StatelessWidget {
-  const NewItemsShow({
-    super.key,
-  });
+
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200.h,
+      height: 220.h,
       child: ListView.builder(
           shrinkWrap: true,
           physics:AlwaysScrollableScrollPhysics(),
@@ -102,67 +112,21 @@ class NewItemsShow extends StatelessWidget {
           itemCount: 6,
           // Example item count
           itemBuilder: (context, index) {
-            return CustomNewProduct(width: 130.w, height: 138.h);}
+            return CustomNewProduct(width: 130.w, height: 138.h,text: "New T-shirt, sun-glass",text2: "New T-shirt,",);}
       ),
     );
   }
-}
 
-class CustomNewProduct extends StatelessWidget {
-  const CustomNewProduct({
-    super.key, required this.width, required this.height
-  });
- final double width;
-  final double height;
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 5.w,vertical: 5.h),
-          margin: EdgeInsets.symmetric(horizontal: 5.w),
-          width: width,
-          height: height,
-          decoration: BoxDecoration(
-            color: AllColor.white,
-            borderRadius: BorderRadius.circular(7.r),
 
-          ),
-          clipBehavior: Clip.hardEdge,
-          child: Column(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8.r),
-                child: Image.asset(
-                  '${ImagePath.justForYouImage}', // আপনার ইমেজ পাথ দিন এখানে
-                  fit: BoxFit.contain,
 
-                ),
-              ),
-              // Discount Tag
 
-            ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(top: 10.h,left: 15.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 3.h,),
-              Text("New T-shirt, sun-glass".length > 12 ? "New T-shirt," : "New T-shirt, sun-glass",style: Theme.of(context).textTheme.titleMedium!.copyWith(color: AllColor.black),maxLines: 1,overflow: TextOverflow.ellipsis,),
-              SizedBox(height: 5.h,),
-              Text("\$17,00",style: Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 18),)
-            ],
-          ),
-        ),
 
-      ],
-    );
+  void goToDetailsScreen(BuildContext context) {
+    context.push(ProductDetails.routeName);
   }
-}
+
+
 
 class DiscountProduct extends StatelessWidget {
   const DiscountProduct({
@@ -202,23 +166,7 @@ class DiscountProduct extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
                 // Discount Tag
-                Positioned(
-                  top: 0.h,
-                  right: 0.w,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
-                    decoration: BoxDecoration(
-                      color: AllColor.yellow500,
-                      borderRadius: BorderRadius.circular(5.r),
-                    ),
-                    child: Text(
-                      '-20%',
-                      style:Theme.of(context).textTheme.titleLarge!.copyWith(
-                        fontSize: 12.sp,color: AllColor.white
-                      ),
-                      ),
-                    ),
-                  ),
+                CustomDiscountCord(),
 
               ],
             ),
@@ -232,6 +180,8 @@ class DiscountProduct extends StatelessWidget {
     );
   }
 }
+
+
 
 class TimerScreen extends StatefulWidget {
   const TimerScreen({Key? key}) : super(key: key);
@@ -285,39 +235,7 @@ class _TimerScreenState extends State<TimerScreen> {
   }
 }
 
-class TopProducts extends ConsumerWidget {
-   TopProducts({
-    super.key,
-  });
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final allProducts = ref.watch(Category.loadCategories);
-    return SizedBox(
-      height: 55.h,
-      width: double.infinity,
-      child:allProducts.when(data: (product) {
-        List<ProductModel> topProducts =product.where((eliment) => eliment.topProduct == true).toList();
-        return ListView.builder(
-        shrinkWrap: true,
-        physics: AlwaysScrollableScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        itemCount: topProducts.length, // Example item count
-        itemBuilder: (context, index) {
-          final allTopProduct = topProducts[index];
-          return CircleAvatar(radius: 30.r,backgroundColor: AllColor.white,
-              child: CircleAvatar(
-                radius: 24.r,
-                backgroundImage: AssetImage("${allTopProduct.image}"),
-                ),
-              );
-              }
-      );}, error: (error, stack) => Text('Something went wrong'),
-        loading: () => CircularProgressIndicator(),
-    ));
-  }
-
-}
 
 
 
@@ -406,28 +324,7 @@ class BuyerHomeSearchBar extends StatelessWidget {
           children: [
             Expanded(
               flex: 2,
-              child: TextFormField(
-                decoration: InputDecoration(
-                  hintText: 'Search for products',
-                  prefixIcon: Icon(Icons.search,),
-                  isDense: true,
-                  filled: true,
-                  fillColor: Colors.white,
-                  contentPadding: EdgeInsets.symmetric(vertical: 12.h,),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(50.r),
-                    borderSide: BorderSide.none,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(50.r),
-                    borderSide: BorderSide.none,
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(50.r),
-                    borderSide: BorderSide(color: Colors.grey), // ফোকাসে যেটা দেখাতে চান
-                  ),
-                ), // থিম ইনহেরিট না করার জন্য
-              ),
+              child: CustomSearchBar(),
             ),
             SizedBox(width: 8.w),
             // Menu Icon
@@ -456,35 +353,13 @@ class BuyerHomeSearchBar extends StatelessWidget {
 
             SizedBox(width: 8.w),
             // Notification Icon
-            Container(
-              height: 35.h,
-              width: 35.w,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 4,
-                    offset: Offset(0,0.5.sp),
-                  ),
-                ],
-              ),
-              child: IconButton(
-                icon: Icon(Icons.notifications, size: 20.sp),
-                onPressed: () {
-                  goToNotificationScreen(context);}
-                ,
-              ),
-            ),
+           GlobalNotificationIcon()
           ],
         ),
       ],
     );
   }
-  void goToNotificationScreen(BuildContext context) {
-    context.push(NotificationsScreen.routeName);
-  }
+
   void openingFilter(BuildContext context) {
     showModalBottomSheet(
       context: context,

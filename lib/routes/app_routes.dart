@@ -1,14 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:market_jango/core/widget/bottom_nav_bar.dart';
+import 'package:market_jango/core/screen/buyer_massage/screen/global_chat_screen.dart';
+import 'package:market_jango/core/screen/buyer_massage/screen/global_massage_screen.dart';
+import 'package:market_jango/features/navbar/screen/buyer_bottom_nav_bar.dart';
+import 'package:market_jango/features/navbar/screen/driver_bottom_nav_bar.dart';
+import 'package:market_jango/features/buyer/screens/buyer_vendor_profile/buyer_vendor_profile_screen.dart';
+import 'package:market_jango/features/navbar/screen/transport_bottom_nav_bar.dart';
+import 'package:market_jango/features/auth/screens/account_request.dart';
+import 'package:market_jango/features/auth/screens/car_info.dart';
+import 'package:market_jango/features/auth/screens/vendor_request_screen.dart';
+import 'package:market_jango/features/buyer/review/review_screen.dart';
 import 'package:market_jango/features/buyer/screens/all_categori/screen/all_categori_screen.dart';
-import 'package:market_jango/features/buyer/screens/buyer_massage/screen/buyer_massage_screen.dart';
-import 'package:market_jango/features/buyer/screens/buyer_massage/screen/chat_screen.dart';
+import 'package:market_jango/features/buyer/screens/all_categori/screen/category_product_screen.dart';
 import 'package:market_jango/features/buyer/screens/cart/screen/cart_screen.dart';
 import 'package:market_jango/features/buyer/screens/notification/screen/notification_screen.dart';
+import 'package:market_jango/features/buyer/screens/order/screen/buyer_order_history_screen.dart';
+import 'package:market_jango/features/buyer/screens/order/screen/buyer_order_page.dart';
+import 'package:market_jango/features/buyer/screens/prement/screen/buyer_payment_screen.dart';
+import 'package:market_jango/features/buyer/screens/product/product_details.dart';
+import 'package:market_jango/core/screen/global_profile_edit_screen.dart';
 import 'package:market_jango/features/buyer/screens/see_just_for_you_screen.dart';
-import 'package:market_jango/features/buyer/screens/see_new_items_screen.dart';
-import 'package:market_jango/features/settings/screens/settings_screen.dart';
+import 'package:market_jango/features/driver/screen/driver_chat.dart';
+import 'package:market_jango/features/driver/screen/driver_delivered.dart';
+import 'package:market_jango/features/driver/screen/driver_edit_rofile.dart';
+import 'package:market_jango/features/driver/screen/driver_home.dart';
+import 'package:market_jango/features/driver/screen/driver_notificatons.dart';
+import 'package:market_jango/features/driver/screen/driver_ontheway.dart';
+import 'package:market_jango/features/driver/screen/driver_order.dart';
+import 'package:market_jango/features/driver/screen/driver_order_details.dart';
+import 'package:market_jango/features/driver/screen/driver_setting.dart';
+import 'package:market_jango/features/driver/screen/driver_traking_screen.dart';
+import 'package:market_jango/core/screen/global_profile_screen.dart';
 import 'package:market_jango/features/auth/screens/Congratulation.dart';
 import 'package:market_jango/features/auth/screens/code_screen.dart';
 import 'package:market_jango/features/auth/screens/email_screen.dart';
@@ -22,32 +44,71 @@ import 'package:market_jango/features/auth/screens/vendor_request_from.dart';
 import 'package:market_jango/features/auth/screens/verification_screen.dart';
 import 'package:market_jango/features/buyer/screens/filter/screen/filter_screen.dart';
 import 'package:market_jango/features/buyer/screens/home_screen.dart';
-import 'package:market_jango/features/transport/screens/transport.dart';
+import 'package:market_jango/features/navbar/screen/vendor_bottom_nav.dart';
+import 'package:market_jango/features/vendor/screens/vendor_asign_to_order_driver/screen/asign_to_order_driver.dart';
+import 'package:market_jango/features/vendor/screens/vendor_category_add_page/screen/category_add_page.dart';
+import 'package:market_jango/features/vendor/screens/my_product_color/screen/my_product_color.dart';
+import 'package:market_jango/features/vendor/screens/product_edit/screen/product_edit_screen.dart';
+import 'package:market_jango/features/transport/screens/add_card_screen.dart';
+import 'package:market_jango/features/transport/screens/driver_details_screen.dart';
+import 'package:market_jango/features/transport/screens/language_screen.dart';
+import 'package:market_jango/features/transport/screens/ongoing_order_screen.dart';
+import 'package:market_jango/features/transport/screens/profile_edit.dart';
+import 'package:market_jango/features/transport/screens/transport_booking.dart';
+import 'package:market_jango/features/transport/screens/transport_cancelled.dart';
+import 'package:market_jango/features/transport/screens/transport_cancelled_details.dart';
+import 'package:market_jango/features/transport/screens/transport_chart.dart';
+import 'package:market_jango/features/transport/screens/transport_competed_details.dart';
+import 'package:market_jango/features/transport/screens/transport_completed.dart';
+import 'package:market_jango/features/transport/screens/transport_driver.dart';
+import 'package:market_jango/features/transport/screens/transport_home.dart';
+import 'package:market_jango/features/transport/screens/transport_message.dart';
+import 'package:market_jango/features/transport/screens/transport_notifications.dart';
+import 'package:market_jango/features/transport/screens/transport_setting.dart';
+import 'package:market_jango/core/screen/global_tracking_screen_1.dart';
+import 'package:market_jango/features/vendor/screens/vendor_product_edit_page/screen/product_edite_page.dart';
+import 'package:market_jango/features/vendor/screens/vendor_assigned_order/screen/vendor_assigned_order.dart';
+import 'package:market_jango/features/vendor/screens/vendor_cancelled_screen/screen/vendor_cancelled_screen.dart';
+import 'package:market_jango/features/vendor/screens/vendor_driver_list/screen/vendor_driver_list.dart';
+import 'package:market_jango/features/vendor/screens/vendor_my_product_screen.dart/screen/vendor_my_product_screen.dart';
+import 'package:market_jango/features/vendor/screens/vendor_pending_secrren/screen/vendor_pending_screen.dart';
+import 'package:market_jango/features/vendor/screens/vendor_product_other_screen/screen/vendor_product_color_name.dart';
+import 'package:market_jango/features/vendor/screens/vendor_profile_edit/screen/vendor_edit_profile.dart';
+import 'package:market_jango/features/vendor/screens/vendor_notification/screen/vendor_notifications.dart';
+import 'package:market_jango/features/vendor/screens/vendor_order_cancel/screen/vendor_order_cancel.dart';
+import 'package:market_jango/features/vendor/screens/vendor_order_complete/screen/vendor_order_complete.dart';
+import 'package:market_jango/features/vendor/screens/vendor_order_pending/screen/vendor_order_pending.dart';
+import 'package:market_jango/features/vendor/screens/vendor_sale_platform/screen/vendor_sale_platform.dart';
+import 'package:market_jango/features/vendor/screens/vendor_setting/screen/vendor_settings.dart';
+import 'package:market_jango/features/vendor/screens/vendor_track_shipment/screen/vendor_track_shipment.dart';
+import 'package:market_jango/features/vendor/screens/vendor_transport/screen/vendor_transport_screen.dart';
+import 'package:market_jango/features/vendor/screens/vendor_transport_details/screen/vendor_transport_details.dart';
+
 import '../features/auth/screens/forgot_password_screen.dart';
-import '../features/auth/screens/login_screen.dart';
+import '../features/auth/screens/login/screen/login_screen.dart';
+import '../features/vendor/screens/vendor_my_product_size/screen/my_product_size.dart';
 
 final GoRouter router = GoRouter(
-
   initialLocation: SplashScreen.routeName,
-  errorBuilder: (context, state) => Scaffold(
-    body: Center(
-      child: Text('Error: ${state.error } '),
-    ),
-  ),
-
-
+  errorBuilder: (context, state) =>
+      Scaffold(body: Center(child: Text('Error: ${state.error} '))),
 
   routes: <RouteBase>[
-
-    //Loging flow
     GoRoute(
       path: LoginScreen.routeName,
-      name: 'login',
-      builder: (context, state) => const LoginScreen(),
+      name: 'loginScreen',
+      builder: (context, state) =>  LoginScreen(),
     ),
+
+    GoRoute(
+      path: SplashScreen.routeName,
+      name: 'splashScreen',
+      builder: (context, state) => const SplashScreen(),
+    ),
+
     GoRoute(
       path: ForgotPasswordScreen.routeName,
-       name: 'forgot_password',
+      name: 'forgot_password',
       builder: (context, state) => const ForgotPasswordScreen(),
     ),
     GoRoute(
@@ -63,15 +124,15 @@ final GoRouter router = GoRouter(
 
 
 
-    // Auth flow
-    GoRoute(path:SplashScreen.routeName,
-    name: 'splashScreen',
-    builder: (context,state)=>const SplashScreen(),
-     ),
-     GoRoute(path:NameScreen.routeName,
-    name: 'nameScreen',
-    builder: (context,state)=>const NameScreen(),
-     ),
+    GoRoute(
+      path: '${NameScreen.routeName}/:role',
+      name: NameScreen.routeName,
+      builder: (context, state) {
+        final role = state.pathParameters['role'] ?? '';
+        return NameScreen(roleName: role);
+      },
+
+    ),
     GoRoute(path:UserScreen.routeName,
     name: 'userScreen',
     builder: (context,state)=>const UserScreen(),
@@ -80,32 +141,32 @@ final GoRouter router = GoRouter(
     name: 'phoneNumberScreen',
     builder: (context,state)=>const PhoneNumberScreen(),
      ),
-    GoRoute(path:CodeScreen.routeName,
-    name: 'codeScreen',
-    builder: (context,state)=>const CodeScreen(),
-     ),
-    GoRoute(path:EmailScreen.routeName,
-    name: 'emailScreen',
-    builder: (context,state)=>const EmailScreen(),
-     ),
+   
+   
     GoRoute(path:PasswordScreen.routeName,
     name: 'passwordScreen',
     builder: (context,state)=>const PasswordScreen(),
      ),
-    GoRoute(path:CongratulationScreen.routeName,
-    name: 'congratulationScreen',
-    builder: (context,state)=>const CongratulationScreen(),
-     ),
 
-  // Seller flow
-  // This section is for routes related to the seller functionality.
-  // Add GoRoute widgets here for seller-specific screens.
-  // Example:
-  // GoRoute(
-  //   path: SellerDashboardScreen.routeName,
-  //   name: 'seller_dashboard',
-  //   builder: (context, state) => const SellerDashboardScreen(),
-  // ),
+     GoRoute(
+      path:AccountRequest.routeName,
+      name: 'accountRequest',
+      builder: (context,state)=>const AccountRequest(),
+     ), 
+
+  
+    GoRoute(
+      path:VendorBottomNav.routeName,
+      name: 'vendorBottomNavBar',
+      builder: (context,state)=> VendorBottomNav(),
+    ),
+
+    GoRoute(
+      path:ProductEditScreen.routeName,
+      name: 'vendorProductEdit',
+      builder: (context,state)=> ProductEditScreen(),
+    ),
+
    GoRoute(
      path:VendorRequestFrom.routeName,
     name: 'vendorRequstFrom',
@@ -113,6 +174,150 @@ final GoRouter router = GoRouter(
      ),
 
 
+     GoRoute(
+     path:VendorRequestScreen.routeName,
+    name: 'vendor_request',
+    builder: (context,state)=>const VendorRequestScreen(),
+     ),
+
+GoRoute(
+     path:VendorNotifications.routeName,
+    name: 'vendor_notificatons',
+    builder: (context,state)=>const VendorNotifications(),
+     ),
+
+     GoRoute(
+     path:VendorSettings.routeName,
+    name: 'vendor_setting',
+    builder: (context,state)=>const VendorSettings(),
+     ),
+
+     GoRoute(
+     path:VendorEditProfile.routeName,
+    name: 'vendorEditProfile',
+    builder: (context,state)=>const VendorEditProfile(),
+     ),
+
+ GoRoute(
+     path:VendorTransportScreen.routeName,
+    name: 'vendorTransporter',
+    builder: (context,state)=>const VendorTransportScreen(),
+     ),
+
+     GoRoute(
+     path:VendorOrderPending.routeName,
+    name: 'vendorOrderPending',
+    builder: (context,state)=>const VendorOrderPending(),
+     ),
+
+    GoRoute(
+      path:AsignToOrderDriver.routeName,
+      name: 'assign_order_driver',
+      builder: (context,state)=>const AsignToOrderDriver(),
+    ),
+
+    GoRoute(
+     path:VendorAssignedOrder.routeName,
+    name: 'vendorOrderAssigned',
+    builder: (context,state)=>const VendorAssignedOrder(),
+     ),
+    
+         GoRoute(
+     path:VendorOrderComplete.routeName,
+    name: 'vendorOrderCompleted',
+    builder: (context,state)=>const VendorOrderComplete(),
+     ),
+ 
+  GoRoute(
+     path:VendorOrderCancel.routeName,
+    name: 'vendorOrderCancel',
+    builder: (context,state)=>const VendorOrderCancel(),
+     ),
+
+      GoRoute(
+     path:VendorSalePlatformScreen.routeName,
+    name: 'vendorSalePlatform',
+    builder: (context,state)=>const VendorSalePlatformScreen(),
+     ),
+
+     
+      GoRoute(
+     path:VendorDriverList.routeName,
+    name: 'vendorDriverList',
+    builder: (context,state)=>const VendorDriverList(),
+     ), 
+
+
+      GoRoute(
+     path:VendorTransportDetails.routeName,
+    name: 'vendorTransportDetails',
+    builder: (context,state)=>const VendorTransportDetails(),
+     ),
+
+      GoRoute(
+     path:VendorShipmentsScreen.routeName,
+    name: 'vendortrack_shipments',
+    builder: (context,state)=>const VendorShipmentsScreen(),
+     ),
+
+    GoRoute(
+    path:VendorPendingScreen.routeName,
+    name: 'vendorPendingScreen',
+    builder: (context,state)=>const VendorPendingScreen(),
+     ),
+
+
+      GoRoute(
+     path:VendorCancelledScreen.routeName,
+    name: 'vendorCancelledScreen',
+    builder: (context,state)=>const VendorCancelledScreen(),
+     ),
+
+
+    GoRoute(
+    path:VendorMyProductScreen.routeName,
+    name: 'vendorMyProductScreen',
+    builder: (context,state)=>const VendorMyProductScreen(),
+     ),
+
+ 
+  GoRoute(
+    path:VendorProductColorName.routeName,
+    name: 'vendorProductColorName',
+    builder: (context,state)=> VendorProductColorName(),
+     ),
+
+
+
+
+    GoRoute(
+      path: CodeScreen.routeName,
+      name: 'codeScreen',
+      builder: (context, state) => const CodeScreen(),
+    ),
+
+    GoRoute(
+      path: EmailScreen.routeName,
+      name: 'emailScreen',
+      builder: (context, state) => const EmailScreen(),
+    ),
+
+   
+
+    GoRoute(
+      path: CongratulationScreen.routeName,
+      name: 'congratulationScreen',
+      builder: (context, state) => const CongratulationScreen(),
+    ),
+
+
+     GoRoute(
+      path: CarInfoScreen.routeName,
+      name: 'car_info',
+      builder: (context, state) => const CarInfoScreen(),
+    ),
+
+  
     // Settings Flow
     GoRoute(
       path: SettingScreen.routeName,
@@ -120,13 +325,10 @@ final GoRouter router = GoRouter(
       builder: (context, state) => const SettingScreen(),
     ),
 
-
-    // Buyer flow
-
-GoRoute(
-      path: BuyerMassageScreen.routeName,
+    GoRoute(
+      path: GlobalMassageScreen.routeName,
       name: "buyer_massage_screen",
-      builder: (context, state) => const BuyerHomeScreen(),
+      builder: (context, state) => const GlobalMassageScreen(),
     ),
 
     GoRoute(
@@ -134,7 +336,6 @@ GoRoute(
       name: 'buyer_home',
       builder: (context, state) => const BuyerHomeScreen(),
     ),
-    
 
     GoRoute(
       path: NotificationsScreen.routeName,
@@ -146,49 +347,269 @@ GoRoute(
       name: 'filter_screen',
       builder: (context, state) => FilterScreen(),
     ),
-GoRoute(
+
+    GoRoute(
+      path: TransportHome.routeName,
+      name: 'transport_home',
+      builder: (context, state) => TransportHome(),
+    ),
+
+    GoRoute(
+      path: TransportBottomNavBar.routeName,
+      name: 'transport_bottom_nav_bar',
+      builder: (context, state) => TransportBottomNavBar(),
+    ),
+
+    GoRoute(
+      path: TransportChart.routeName,
+      name: 'transort_chat',
+      builder: (context, state) => TransportChart(),
+    ),
+
+    GoRoute(
+      path: TransportMessage.routeName,
+      name: 'transort_message',
+      builder: (context, state) => TransportMessage(),
+    ),
+
+    GoRoute(
+      path: '${GlobalTrackingScreen1.routeName}/:screenName',
+      name: GlobalTrackingScreen1.routeName,
+      builder: (context, state) =>
+          GlobalTrackingScreen1(screenName: state.pathParameters['screenName']!),
+    ),
+
+    GoRoute(
+      path: TransportSetting.routeName,
+      name: 'transport_setting',
+      builder: (context, state) => TransportSetting(),
+    ),
+
+    GoRoute(
+      path: TransportBooking.routeName,
+      name: 'transport_booking',
+      builder: (context, state) => TransportBooking(),
+    ),
+
+    GoRoute(
+      path: OngoingOrdersScreen.routeName,
+      name: 'ongoingOrders',
+      builder: (context, state) => OngoingOrdersScreen(),
+    ),
+
+    GoRoute(
+      path: TransportCompleted.routeName,
+      name: 'completedOrders',
+      builder: (context, state) => TransportCompleted(),
+    ),
+
+      GoRoute(
+      path: TransportCompetedDetails.routeName,
+      name: 'completedDetails',
+      builder: (context, state) => TransportCompetedDetails(),
+    ),
+
+      GoRoute(
+      path: TransportCancelled.routeName,
+      name: 'cancelledOrders',
+      builder: (context, state) => TransportCancelled(),
+    ), 
+
+    GoRoute(
+      path: TransportCancelledDetails.routeName,
+      name: 'cancelledDetails',
+      builder: (context, state) => TransportCancelledDetails(),
+    ), 
+
+
+    GoRoute(
+      path: LanguageScreen.routeName,
+      name: 'language',
+      builder: (context, state) => LanguageScreen(),
+    ), 
+
+    GoRoute(
+      path: TransportDriver.routeName,
+      name: 'transport_driver',
+      builder: (context, state) => TransportDriver(),
+    ),
+
+    GoRoute(
+      path: DriverDetailsScreen.routeName,
+      name: 'driverDetails',
+      builder: (context, state) => DriverDetailsScreen(),
+    ),
+
+    GoRoute(
+      path: AddCardScreen.routeName,
+      name: 'addCard',
+      builder: (context, state) => AddCardScreen(),
+    ),
+
+    GoRoute(
+      path: TransportNotifications.routeName,
+      name: 'transport_notificatons',
+      builder: (context, state) => TransportNotifications(),
+    ),
+
+    GoRoute(
+      path: EditProfilScreen.routeName,
+      name: 'editProfile',
+      builder: (context, state) => EditProfilScreen(),
+    ),
+
+    GoRoute(
       path: CategoriesScreen.routeName,
       name: CategoriesScreen.routeName,
-      builder: (context, state) =>  CategoriesScreen(),
+      builder: (context, state) => CategoriesScreen(),
     ),
     GoRoute(
-      path: BottomNavBar.routeName,
+      path: BuyerBottomNavBar.routeName,
       name: 'bottom_nav_bar',
-      builder: (context, state) => const BottomNavBar(),
+      builder: (context, state) => const BuyerBottomNavBar(),
     ),
-    GoRoute(
-      path: SeeNewItemsScreen.routeName,
-      name: SeeNewItemsScreen.routeName,
-      builder: (context, state) => const SeeNewItemsScreen(),
+
+     GoRoute(
+      path: DriverBottomNavBar.routeName,
+      name: 'driver_bottom_nav_bar',
+      builder: (context, state) => const DriverBottomNavBar(),
     ),
+
+     GoRoute(
+      path: DriverChat.routeName,
+      name: 'driverChat',
+      builder: (context, state) => const DriverChat(),
+    ),
+    
+     GoRoute(
+      path: DriverOrder.routeName,
+      name: 'driverOrder',
+      builder: (context, state) => const DriverOrder(),
+    ),
+    
+     GoRoute(
+      path: DriverSetting.routeName,
+      name: 'driverSetting',
+      builder: (context, state) => const DriverSetting(),
+    ),
+    
+     GoRoute(
+      path: DriverHome.routeName,
+      name: 'driverHome',
+      builder: (context, state) => const DriverHome(),
+    ),
+    
     GoRoute(
-      path: SeeJustForYouScreen.routeName,
+      path: OrderDetailsScreen.routeName,
+      name: 'orderDetails',
+      builder: (context, state) => const OrderDetailsScreen(),
+    ),
+
+    GoRoute(
+      path: DriverEditProfile.routeName,
+      name: 'driverEidtProfile',
+      builder: (context, state) => const DriverEditProfile(),
+    ),
+
+     GoRoute(
+      path: DriverNotificatons.routeName,
+      name: 'driverNotifications',
+      builder: (context, state) => const DriverNotificatons(),
+    ),
+
+
+     GoRoute(
+      path: DriverTrakingScreen.routeName,
+      name: 'driverTrackingScreen',
+      builder: (context, state) => const  DriverTrakingScreen() ,
+    ),
+
+       GoRoute(
+      path: DriverDelivered.routeName,
+      name: 'driverDelivered',
+      builder: (context, state) => const  DriverDelivered() ,
+    ),
+
+       GoRoute(
+      path: DriverOntheway.routeName,
+      name: 'on-the-way',
+      builder: (context, state) => const  DriverOntheway() ,
+    ),
+
+
+    
+    GoRoute(
+      path: "${SeeJustForYouScreen.routeName}/:screenName",
       name: SeeJustForYouScreen.routeName,
-      builder: (context, state) => const SeeJustForYouScreen(),
+      
+      builder: (context, state) =>  SeeJustForYouScreen(screenName: state.pathParameters["screenName"] ?? "Just for you",),
     ),
- GoRoute(
+    GoRoute(
       path: ChatScreen.routeName,
       name: ChatScreen.routeName,
       builder: (context, state) => const ChatScreen(),
-    ),GoRoute(
+    ),
+    GoRoute(
       path: CartScreen.routeName,
       name: CartScreen.routeName,
       builder: (context, state) => const CartScreen(),
     ),
-
-    // Transport flow
-    // This section is for routes related to the transport functionality.
-    // Add GoRoute widgets here for transport-specific screens.
-    // Example:
-    // GoRoute(
-    //   path: TrackOrderScreen.routeName,
-    //   name: 'track_order',
-    //   builder: (context, state) => const TrackOrderScreen(),
-    // ),
     GoRoute(
-      path: TransportScreen.routeName,
-      name: 'transport',
-      builder: (context, state) => const TransportScreen(),
+      path: CategoryProductScreen.routeName,
+      name: CategoryProductScreen.routeName,
+      builder: (context, state) => const CategoryProductScreen(),
     ),
+    GoRoute(
+      path: BuyerVendorProfileScreen.routeName,
+      name: BuyerVendorProfileScreen.routeName,
+      builder: (context, state) => const BuyerVendorProfileScreen(),
+    ),
+    GoRoute(
+      path: ReviewScreen.routeName,
+      name: ReviewScreen.routeName,
+      builder: (context, state) => const ReviewScreen(),
+    ),
+    GoRoute(
+      path: ProductDetails.routeName,
+      name: ProductDetails.routeName,
+      builder: (context, state) => const ProductDetails(),
+    ),GoRoute(
+      path: BuyerPaymentScreen.routeName,
+      name: BuyerPaymentScreen.routeName,
+      builder: (context, state) =>  BuyerPaymentScreen(),
+    ),GoRoute(
+      path: BuyerProfileEditScreen.routeName,
+      name: BuyerProfileEditScreen.routeName,
+      builder: (context, state) =>  BuyerProfileEditScreen(),
+    ),GoRoute(
+      path: BuyerOrderPage.routeName,
+      name: BuyerOrderPage.routeName,
+      builder: (context, state) =>  BuyerOrderPage(),
+    ),GoRoute(
+      path: BuyerOrderHistoryScreen.routeName,
+      name: BuyerOrderHistoryScreen.routeName,
+      builder: (context, state) =>  BuyerOrderHistoryScreen(),
+    ),GoRoute(
+      path: MyProductColorScreen.routeName,
+      name: MyProductColorScreen.routeName,
+      builder: (context, state) =>  MyProductColorScreen(),
+    ),
+GoRoute(
+      path: MyProductSizeScreen.routeName,
+      name: MyProductSizeScreen.routeName,
+      builder: (context, state) =>  MyProductSizeScreen(),
+    ),
+GoRoute(
+      path: ProductEditePage.routeName,
+      name: ProductEditePage.routeName,
+      builder: (context, state) =>  ProductEditePage(),
+    ),GoRoute(
+      path: CategoryAddPage.routeName,
+      name: CategoryAddPage.routeName,
+      builder: (context, state) =>  CategoryAddPage(),
+    ),
+
+
+
   ],
 );

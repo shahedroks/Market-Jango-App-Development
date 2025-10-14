@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:market_jango/features/buyer/screens/home_screen.dart';
 
+import 'package:market_jango/core/widget/custom_new_product.dart';
+
+import 'package:market_jango/features/buyer/widgets/custom_discunt_card.dart';
 class CustomSeeAllProduct extends StatelessWidget {
   const CustomSeeAllProduct({
     super.key,
@@ -21,7 +23,16 @@ class CustomSeeAllProduct extends StatelessWidget {
           itemCount: 20,
           // Example item count
           itemBuilder: (context, index) {
-            return CustomNewProduct(width: 162.w, height: 175.h);
+            return Stack(
+              children: [
+                CustomNewProduct(width: 162.w, height: 178.h, text: 'Product Name', text2: '',),
+                Positioned(
+                  top: 10.h,
+                  right: 15.w,
+                    child: CustomDiscountCord())
+              ],
+            );
+
           })
       ,
     );
